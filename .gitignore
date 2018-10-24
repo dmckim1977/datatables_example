@@ -4,3 +4,7 @@ datatables.min.css
 datatables.min.js
 .idea/
 env/
+.env
+__pycache__/
+*.pyc
+*migrations/
