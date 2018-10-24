@@ -1,0 +1,181 @@
+{% extends 'datatables_example/base.html' %}
+{% block title %}Unpaid Invoices{% endblock %}
+
+{% block content %}
+
+{% csrf_token %}
+
+<script type="text/javascript" charset="utf-8">
+// using jQuery
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+
+var editor; // use a global for the submit and return data rendering in the examples
+
+$(document).ready(function() {
+    editor = new $.fn.dataTable.Editor( {
+        ajax: {
+             url: '/invoices/_id_/',
+             type: 'PUT',
+             headers: {'X-CSRFToken': '{{ csrf_token }}'},
+            },
+        "table": "#example",
+        "idSrc":  'id',
+        "fields": [
+
+                {
+                    "label": "Date sent for signature:",
+                    "name": "date_sent_for_signature",
+                    "type": "date",
+                },
+                {
+                    "label": "Method Sent:",
+                    "name": "method_sent",
+                    "type": "select",
+                    options: [
+                    {label: "", value: ""},
+                    {label: "SAL", value: "SAL"},
+                    {label: "EMA", value: "EMA"}
+                    ]
+                },
+                {
+                    "label": "Person sent with invoice:",
+                    "name": "person_sent_with_invoice",
+                    "type": "select",
+                    options: [
+                        {label: "", value: ""},
+                        {label: "dvolz", value: "dvolz"},
+                        {label: "rguerra", value: "rguerra"},
+                        {label: "kporras", value: "kporras"},
+                        {label: "bsmith", value: "bsmith"},
+                        {label: "lsanchez", value: "lsanchez"},
+                        {label: "jmoore", value: "jmoore"},
+			            {label: "dmckim", value: "dmckim"},
+			            {label: "cmathews", value: "cmathews"},
+			            {label: "lhoenhe", value: "lhoenhe"},
+			            {label: "mtorres", value: "mtorres"},
+			            {label: "hmartin", value: "hmartin"},
+			            {label: "mhamm", value: "mhamm"},
+                    ]
+                },
+                {
+                    "label": "Date invoice returned:",
+                    "name": "date_signed_invoice_returned",
+                    "type": "date",
+                },
+                {
+                    "label": "Date submitted:",
+                    "name": "date_submitted",
+                    "type": "date",
+                },
+                {
+                    "label": "Notes:",
+                    "name": "notes"
+                }
+		]
+    } );
+
+    // Activate an inline edit on click of a table cell
+    $('#example').on( 'click', 'tbody td:not(:first-child)', function (e) {
+        editor.inline( this );
+    } );
+
+    $('#example').DataTable( {
+        "responsive": true,
+        "dom": "Blfrtip",
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        "order": [[0, 'desc' ]],
+        "ajax": {
+         url: '/api/unpaid_invoices/',
+         dataSrc: '[]',
+         processData: true,
+            error: function (xhr, jqAjaxerror, thrown) {
+                if (xhr.status == 403) {
+                    top.location.href = '/accounts/login/';
+                } else {
+                    alert("Please contact Supper for support with this error information " + xhr.status + "  "+ thrown +". Please note the time and which item you were updating.");
+                }
+            //This tells dataTables editor that the update failed
+                dtFailureCallback( jqAjaxerror );
+            }
+        },
+        "columns": [
+            { "data": "invoice_number" },
+            { "data": "bill_name" },
+            { "data": "ordered_by" },
+            { "data": "job_type" },
+            { "data": "well_name" },
+            { "data": "contractor" },
+            { "data": "creation_date"},
+            { "data": "invoice_office_code" },
+            { "data": "invoice_total", render: $.fn.dataTable.render.number( ',', '.', 0, '$' )  },
+            { "data": "date_sent_for_signature" },
+            { "data": "method_sent" },
+            { "data": "person_sent_with_invoice" },
+            { "data": "date_signed_invoice_returned" },
+            { "data": "date_submitted" },
+            { "data": "submitted_age" },
+            { "data": "dro" },
+            { "data": "notes" },
+        ],
+        keys: {
+            columns: ':not(:first-child)',
+            editor:  editor
+        },
+        select: {
+            style:    'os',
+            selector: 'td:first-child'
+        },
+    } );
+     } );
+</script>
+
+<!--Container for body content-->
+<div class="container-fluid">
+
+
+    <!--column 2 of 2 for table  -->
+    <div class="col-8">
+        <table id="example" class="display" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>Invoice Number</th>
+                    <th>Bill Name</th>
+                    <th>Ordered By</th>
+                    <th>Job Type</th>
+                    <th>Well Name</th>
+                    <th>Contractor</th>
+                    <th>Creation Date</th>
+                    <th>Office</th>
+                    <th>Invoice Total</th>
+                    <th>Date Sent for signature</th>
+                    <th>Method sent</th>
+                    <th>Salesman</th>
+                    <th>Date returned</th>
+                    <th>Date Submitted</th>
+                    <th>Submitting Aging</th>
+                    <th>DRO</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

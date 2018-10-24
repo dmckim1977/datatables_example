@@ -1,0 +1,79 @@
+<html>
+  <head>
+
+    <!doctype html>
+    <html lang="en">
+    <title>{% block title %}Default Title{% endblock %}</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   {% load static %}
+    <!--Load jQuery-->
+        <script src="{% static 'jQuery-3.2.1/jquery-3.2.1.js' %}"></script>
+
+    <!--{% block css %}-->
+    <!--CSS static imports-->
+        <link rel="stylesheet" href="{% static 'DataTables-1.10.16/css/jquery.dataTables.min.css' %}">
+        <link rel="stylesheet" href="{% static 'Buttons-1.5.1/css/buttons.dataTables.min.css' %}">
+        <link rel="stylesheet" href="{% static 'Select-1.2.4/css/select.dataTables.min.css' %}">
+        <link rel="stylesheet" href="{% static 'Responsive-2.2.1/css/responsive.bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'editor-2018-01-03-1.7.0/css/editor.bootstrap4.css' %}">
+        <link rel="stylesheet" href="{% static 'editor-2018-01-03-1.7.0/css/editor.bootstrap4.min.css' %}">
+        <link rel="stylesheet" href="{% static 'KeyTable-2.3.2/css/keyTable.dataTables.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static '/css/style.css' %}">
+    <!--CSS CDN links-->
+
+    <!-- Bootstrap -->
+	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static '/css/style.css' %}">
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+    <!--{% endblock %}-->
+
+
+    </html>
+  </head>
+
+  <body>
+
+
+{% block content %}
+{% endblock %}
+
+    {% block js %}
+    <!--JS CDN links  -->
+
+    <!--JS static imports-->
+        <script src="{% static 'js/popper.min.js' %}"></script>
+        <script src="{% static 'DataTables-1.10.16/js/jquery.dataTables.min.js' %}"></script>
+        <script src="{% static 'DataTables-1.10.16/js/dataTables.bootstrap4.min.js' %}"></script>
+        <script src="{% static 'Responsive-2.2.1/js/dataTables.responsive.js' %}"></script>
+        <script src="{% static 'Responsive-2.2.1/js/responsive.bootstrap.min.js' %}"></script>
+        <script src="{% static 'Editor-2018-01-03-1.7.0/js/dataTables.editor.js' %}"></script>
+        <script src="{% static 'Editor-2018-01-03-1.7.0/js/dataTables.editor.min.js' %}"></script>
+        <!--<script src="{% static 'Editor-2018-01-03-1.7.0/js/editor.autoComplete.js' %}"></script>-->
+        <script src="{% static 'Select-1.2.4/js/dataTables.select.min.js' %}"></script>
+        <script src="{% static 'Buttons-1.5.1/js/dataTables.buttons.min.js' %}"></script>
+        <script src="{% static 'Buttons-1.5.1/js/buttons.flash.min.js' %}"></script>
+        <script src="{% static 'JSZip-2.5.0/jszip.min.js' %}"></script>
+        <script src="{% static 'Buttons-1.5.1/js/dataTables.buttons.js' %}"></script>
+        <script src="{% static 'pdfmake-0.1.32/pdfmake.min.js' %}"></script>
+        <script src="{% static 'pdfmake-0.1.32/vfs_fonts.js' %}"></script>
+        <script src="{% static 'Buttons-1.5.1/js/buttons.print.min.js' %}"></script>
+        <script src="{% static 'Buttons-1.5.1/js/buttons.html5.min.js' %}"></script>
+        <script src="{% static 'KeyTable-2.3.2/js/dataTables.keyTable.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.js' %}"></script>
+
+  {% endblock %}
+  </body>
+
+
+</html>
