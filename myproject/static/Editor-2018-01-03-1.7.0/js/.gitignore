@@ -1,0 +1,11 @@
+#Pycharm folder
+.idea/
+__pycache__/
+
+# Virtualenv folder. Change this if you change the name of the environment.
+env/
+.env
+
+# Python compiled files
+*.pyc
+
